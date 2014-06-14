@@ -4,23 +4,9 @@
 
 using namespace std;
 
-//Input:	Two positions in the tour i, and j, with i < j, and an array
-//			(tour) of ints.
-//Output:	The new tour, with the positions of i and j swapped and the
-//			subpath between i and j reversed.
-int* TwoSwapMove(int i, int j, Tour* tour)
-{
-	try
-	{
-		
-	}
-	catch(...)
-	{
-		cout << "An unknown exception has occurred.";
-	}		
-}
 
-// Input:	Two nodes i,j to swap and 4-dimensional cost matrix Q.
+// Input:	Two nodes i,j to swap in Tour curTour and 4-dimensional cost
+//			matrix Q.
 // Output:	The change in objective resulting from exchanging i and j.
 int Delta(int i, int j, int**** Q)
 {
@@ -30,7 +16,7 @@ int Delta(int i, int j, int**** Q)
 
 // Input:	A tour curTour.
 // Output:	A 2-Opt tour using first improvement to decide moves.
-void TwoExchangeA(Tour* curTour, int n, int**** Q)
+void TwoExchangeFirst(Tour* curTour, int n, int**** Q)
 {
 	start:
 	for (int i = 0; i < n; i++)
@@ -39,7 +25,7 @@ void TwoExchangeA(Tour* curTour, int n, int**** Q)
 		{
 			if (Delta(i, j, Q) < 0)
 			{
-				TwoSwapMove(i, j, curTour);
+				curTour.TwoSwapMove(i, j, curTour);
 				goto start;
 			}
 		}
@@ -48,10 +34,10 @@ void TwoExchangeA(Tour* curTour, int n, int**** Q)
 
 // Input:	A tour curTour.
 // Output:	A 2-Opt tour using best improvement to decide moves.
-void TwoExchangeB(Tour* curTour, int n, int**** Q)
+void TwoExchangeBest(Tour* curTour, int n, int**** Q)
 {
 	int minDelta, tempDelta = 0;
-	int curBestSwap[2];
+	int curBestSwap[2]; // stores the two best nodes to exchange
 	start:
 	tempDelta = 0;
 	for (int i = 0; i < n; i++)
@@ -66,7 +52,13 @@ void TwoExchangeB(Tour* curTour, int n, int**** Q)
 				minDelta = tempDelta;
 			}
 		}
-	} // need exit condition!
-	TwoSwapMove(curBestSwap[0], curBestSwap[1], curTour);
-	goto start;
+	}
+	if (minDelta < 0)
+	{
+		TwoSwapMove(curBestSwap[0], curBestSwap[1], curTour);
+		goto start;
+	}
+	else
+	{
+	}
 }
