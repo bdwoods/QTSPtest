@@ -1,7 +1,11 @@
 #include <iostream>
+#include <stdexcept>
+#include <string>
 #include "Tour.h"
 
 using namespace std;
+
+
 
 Tour::Tour(void)
 {
@@ -32,59 +36,101 @@ Tour::~Tour(void)
 
 // Input:	The ID of a node in the tour
 // Output:	Returns the ID of the next node in the tour
-int Tour::Next(int i)
+int Tour::Next(int i) 
 {
-	return pArray[i * 2]>>1;
+	return pArray[i << 1] >> 1; // Equivalently, pArray[i * 2] / 2;
 }
 
 // Input:	The ID of a node in the tour
 // Output:	Returns the ID of the previous node in the tour
-int Tour::Prev(int i)
+int Tour::Prev(int i) 
 {
-	return pArray[i * 2 + 1]>>1;
+	return pArray[(i << 1) + 1] >> 1; // Equivalently, pArray[(i * 2) + 1] / 2;
 }
 
 bool Tour::Between(int a, int b, int c)
 {
 	return 0;
 }
+
 void Tour::Flip(int a, int b, int c, int d)
-{
-	
+{	//**Remove in final version**.
+	try {
+		CheckValidFlip(a, b, c, d);
+	}
+	catch (const std::invalid_argument& e) {
+		std::cout << e.what();
+    }
+	catch (...) {
+		std::cout << "Error in input to Flip function.";
+	}
+
+	// Perform 2-exchange.
+
 }
 
 // Display the tour on screen
 void Tour::Print()
 {
-	cout << "0 ";
+	std::cout << "0 ";
 	int loc = Next(0);
 	while(loc != 0)
 	{
-		cout << loc << " ";
+		std::cout << loc << " ";
 		loc = Next(loc);
 	}
-	cout << "\n";
+	std::cout << "\n";
 }
 
 // Display the tour on screen
 void Tour::PrintBackwards()
 {
-	cout << "0 ";
+	std::cout << "0 ";
 	int loc = Prev(0);
 	while(loc != 0)
 	{
-		cout << loc << " ";
+		std::cout << loc << " ";
 		loc = Prev(loc);
 	}
-	cout << "\n";
+	std::cout << "\n";
 }
 
 // Display the satellite array on screen (should be made private later)
 void Tour::PrintArray()
 {
-	for(int i = 0; i < 2 * size; i++)
+	for(int i = 0; i < size<<1; i++)
 	{
-		cout << pArray[i] << " ";
+		std::cout << pArray[i] << " ";
 	}
-	cout << "\n";
+	std::cout << "\n";
+}
+
+//----------------------------------------------------------------------------------------------
+//----------------------------------- Helper Functions -----------------------------------------
+//----------------------------------------------------------------------------------------------
+
+
+// Check for proper input: (a,b) and (c,d) are forward edges in the tour
+void Tour::CheckValidFlip(int a, int b, int c, int d)
+{
+	if (b != Next(a)) {
+		throw std::invalid_argument("(" + std::to_string(static_cast<long long>(a)) 
+			+ "," + std::to_string(static_cast<long long>(b)) 
+			+ ") isn't an edge.  Cannot perform 2-exchange.\n");
+	}
+	else if (d != Next(c)) {
+		throw std::invalid_argument("(" + std::to_string(static_cast<long long>(c)) 
+			+ "," + std::to_string(static_cast<long long>(d)) 
+			+ ") isn't an edge.  Cannot perform 2-exchange.\n");
+	}
+	else if ((b == c) | (a == c) | (b == d) | (a == d))
+	{
+		throw std::invalid_argument("Cannot perform 2-exchange move on (" 
+			+ std::to_string(static_cast<long long>(a)) + ","
+			+ std::to_string(static_cast<long long>(b)) + ") and ("
+			+ std::to_string(static_cast<long long>(c)) + ","
+			+ std::to_string(static_cast<long long>(d)) + ").\n");
+	}
+	
+
 }

@@ -5,6 +5,8 @@ class Tour
 {
 private:
 	int *pArray;
+
+	void CheckValidFlip(int a, int b, int c, int d);
 public:
 	int size;
 	
