@@ -25,7 +25,7 @@ void TwoExchangeFirst(Tour* curTour, int n, int**** Q)
 		{
 			if (Delta(i, j, Q) < 0)
 			{
-				curTour.TwoSwapMove(i, j, curTour);
+				//curTour.TwoSwapMove(i, j, curTour);
 				goto start;
 			}
 		}
@@ -55,7 +55,7 @@ void TwoExchangeBest(Tour* curTour, int n, int**** Q)
 	}
 	if (minDelta < 0)
 	{
-		TwoSwapMove(curBestSwap[0], curBestSwap[1], curTour);
+		//TwoSwapMove(curBestSwap[0], curBestSwap[1], curTour);
 		goto start;
 	}
 	else

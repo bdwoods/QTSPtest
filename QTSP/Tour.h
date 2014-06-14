@@ -21,5 +21,10 @@ public:
 	int Prev(int i);
 	bool Between(int a, int b, int c);
 	void Flip(int a, int b, int c, int d);
+
+	void Print();
+	void PrintBackwards();
+
+	void PrintArray();
 };
 
