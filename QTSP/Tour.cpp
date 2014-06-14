@@ -53,7 +53,7 @@ void Tour::Flip(int a, int b, int c, int d)
 	
 }
 
-// Display the tour
+// Display the tour on screen
 void Tour::Print()
 {
 	cout << "0 ";
@@ -66,7 +66,7 @@ void Tour::Print()
 	cout << "\n";
 }
 
-// Display the tour
+// Display the tour on screen
 void Tour::PrintBackwards()
 {
 	cout << "0 ";
@@ -79,7 +79,7 @@ void Tour::PrintBackwards()
 	cout << "\n";
 }
 
-// Display the satellite array (should be made private later)
+// Display the satellite array on screen (should be made private later)
 void Tour::PrintArray()
 {
 	for(int i = 0; i < 2 * size; i++)
