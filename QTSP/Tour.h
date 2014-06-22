@@ -5,12 +5,11 @@ class Tour
 {
 private:
 	int *pArray;
-
 	void CheckValidFlip(int a, int b, int c, int d);
+
 public:
 	int size;
-	
-
+	int GetID(int i);
 
 	// Default Constructor
 	Tour(void);
