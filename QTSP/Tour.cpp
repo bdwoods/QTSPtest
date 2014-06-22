@@ -15,14 +15,12 @@ Tour::Tour(void)
 Tour::Tour(int sz)
 {
 	pArray = new int[sz * 2];
-	for (int i = 0; i < (sz - 1) * 2; i+=2)
-	{
+	for (int i = 0; i < (sz - 1) * 2; i+=2) {
 		pArray[i] = i + 2;
 	}
 	pArray[(sz - 1) * 2] = 0;
 	pArray[1] = 2 * sz - 1;
-	for (int i = 3; i < sz * 2; i+=2)
-	{
+	for (int i = 3; i < sz * 2; i+=2) {
 		pArray[i] = i - 2;
 	}
 	size = sz;
@@ -73,7 +71,7 @@ bool Tour::Between(int a, int b, int c)
 void Tour::Flip(int a, int b, int c, int d)
 {	//**Remove check in final version**.
 	try {
-		CheckValidFlip(a, b, c, d);
+		//CheckValidFlip(a, b, c, d);
 	}
 	catch (const std::invalid_argument& e) {
 		std::cout << e.what();
@@ -108,48 +106,42 @@ void Tour::Flip(int a, int b, int c, int d)
 	loc_lf = pArray[loc_kf];
 	loc_lr = pArray[loc_kf]^1;
 
-	// Change pointers.
+	// Change pointers to make the 2-exchange move.
 	pArray[loc_if] = loc_kr;
 	pArray[loc_jr] = loc_lf;
 	pArray[loc_kf] = loc_ir;
-
-
 	pArray[loc_lr] = loc_jf;
 }
 
-// Display the tour on screen
+// Display the tour on screen.
 void Tour::Print()
 {
 	std::cout << "0 ";
 	int loc = Next(0);
-	while(GetID(loc) != 0)
-	{
+	while(GetID(loc) != 0) {
 		std::cout << GetID(loc) << " ";
 		loc = Next(loc);
 	}
 	std::cout << GetID(loc) << "\n";
 }
 
-// Display the tour on screen
+// Display the tour on screen.
 void Tour::PrintBackwards()
 {
 	std::cout << "0 ";
 	int loc = Prev(0);
-	while(GetID(loc) != 0)
-	{
+	while(GetID(loc) != 0) {
 		std::cout << GetID(loc) << " ";
 		loc = Next(loc);
 	}
 	std::cout << GetID(loc) << "\n";
 }
 
-// Display the satellite array on screen (should be made private later)
+// Display the satellite list on screen (should be made private later).
 void Tour::PrintArray()
 {
 	for(int i = 0; i < size<<1; i++)
-	{
 		std::cout << pArray[i] << " ";
-	}
 	std::cout << "\n";
 }
 
@@ -165,11 +157,8 @@ int Tour::GetID(int i)
 // Check for proper input: (a,b) and (c,d) are forward edges in the tour
 void Tour::CheckValidFlip(int a, int b, int c, int d)
 {
-	cout << GetID(Next(c));
-	cin.get();
-	if (a < 0 || b < 0 || c < 0 || d < 0) {
+	if (a < 0 || b < 0 || c < 0 || d < 0)
 		throw std::invalid_argument("Negative index entered.  Cannot perform 2-exchange.\n");
-	}	
 	else if (b != GetID(Next(a)) && a != GetID(Next(b))) {
 		throw std::invalid_argument("(" + std::to_string(static_cast<long long>(a)) 
 			+ "," + std::to_string(static_cast<long long>(b)) 
@@ -189,3 +178,12 @@ void Tour::CheckValidFlip(int a, int b, int c, int d)
 			+ std::to_string(static_cast<long long>(d)) + ").\n");
 	}
 }
+
+bool Tour::ValidateTour()
+{
+	int* numbers;
+	numbers = new int[size];
+	return true;
+}
+
+

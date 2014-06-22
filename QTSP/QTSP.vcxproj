@@ -60,11 +60,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Instance.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Tour.cpp" />
     <ClCompile Include="TwoExchange.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Instance.h" />
     <ClInclude Include="Tour.h" />
     <ClInclude Include="TwoExchange.h" />
   </ItemGroup>
